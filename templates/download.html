@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <title>RitCloud - Download</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<style>
+    body{
+    overflow-x:hidden;
+    }
+
+
+
+
+</style>
+
+<body>
+<nav>
+    <div class="container-fluied" style="width:100%;">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 style="text-align:left;font-size:250%;margin-top:20px;margin-left:20px;"><i
+                        class="bx bxs-cloud bx-lg"></i><span style="color:Blue"><b>Rit</b></span>Cloud</h1>
+            </div>
+            <div class="col-md-2 mt-5 text-right">
+                <h4><i class="bx bxs-user bx-sm"></i> {{session['name']}}</h4>
+            </div>
+            <div class="col-md-2 mt-5 text-left d-flex">
+                <a href="{{url_for('upload')}}" class="mx-1">
+                    <button class="btn btn-primary">Upload</button>
+                </a>
+                <form method="post" action="logout">
+                    <input type="submit" class="btn btn-danger" value="Logout">
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr style="background-color:black;height:2px;width:100%">
+</nav>
+
+<div id="alert">
+    {% if alert== '1' %}
+    <div class="alert alert-danger mx-5 my-3 alert-dismissible fade show" role="alert">
+        File Deleted Successfully..!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+
+    {% if alert== '2' %}
+    <div class="alert alert-success mx-5 my-3 alert-dismissible fade show" role="alert">
+        File Renamed Successfully..!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+</div>
+
+
+<script>
+    function showalert(file){
+           text = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>${file}</strong> Downloading Started..
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`
+        document.getElementById('alert').innerHTML = text;
+        }
+
+
+
+</script>
+
+<h2 class="text-center my-5">Click on Files to Download</h2>
+<div id="fileslist" class="row d-inline-flex justify-content-center">
+    <!--Javascript will append files here-->
+</div>
+
+
+<script>
+
+        let ls = '{{fileslist}}'
+
+        //to remove [ ]
+        ls = ls.slice(0,ls.length-1)
+
+        list = ls.split(',')
+
+        //count = 0
+        for(i=0;i<list.length;i++){
+        //   count = count+1
+        //   console.log(count)
+            list[i] = list[i].slice(6,list[i].length-5)
+        //    console.log(list[i])
+        }
+
+        count = 0
+        j = 0
+
+        for(j = 0;j<list.length;j++){
+            if (list.length == 0){
+                break
+             }
+
+            ele = document.createElement('p');
+            ele.id = `file${count}`;
+            ele.className="";
+
+            ele.innerHTML = `<div class="col-md-3">
+                <div class="card mx-3 my-4" style="width: 18rem;">
+                      <div class="card-body" title="${list[count]}">
+                        <h5 class="card-title">${list[count].substring(0,20)}</h5>
+                            <form method="post" action="downloadfile" class="form-group">
+                                <input type="text" name="file" value="${list[count]}" style="pointer-events:none;visibility:hidden;" class="form-control">
+                                <input type="submit" onclick="showalert('${list[count]}')" value="Download" class="btn btn-primary form-control">
+                            </form>
+                           <form method="post" action='deletefile' class="form-group">
+                                <input type="text" name="filename" value="${list[count]}" style="display:none;">
+                                <input type="submit" name="delete" value="Delete" class="btn btn-danger form-control">
+                           </form>
+                           <button type="button" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#rename${count}">
+                                Rename
+                            </button>
+                      </div>
+                      </div>
+                  </div>
+
+
+                <div class="modal fade" id="rename${count}" tabindex="-1" aria-labelledby="rename" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="renamemodalName">Rename</h5>
+                        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><h5>x</h5></button>
+                      </div>
+
+                      <form method="post" action="rename" class="form-group">
+                        <div class="modal-body">
+                            <input type="text" name="newname" class="form-control" value="${list[count]}">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" name="oldname" class="btn btn-primary" value="${list[count]}">Rename</button>
+
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>`;
+
+            document.getElementById('fileslist').appendChild(ele);
+            count = count+1;
+        }
+
+
+
+
+
+
+</script>
+
+
+<footer style="background-color:rgb(200,200,200);padding:5px;text-align:center;width:100%;padding-top:10px;margin-top:7%">
+    @copyrights reserved 2021
+</footer>
+</body>
+</html>
+
+
+
+
+
+
+

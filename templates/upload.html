@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <meta charset="UTF-8">
+    <title>RitCloud - Upload</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+
+<style>
+  body{
+  overflow-x:hidden;
+  }
+
+
+
+
+
+</style>
+
+
+<body>
+<nav>
+    <div class="container-fluied" style="width:100%;">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 style="text-align:left;font-size:250%;margin-top:20px;margin-left:20px;"><i
+                        class="bx bxs-cloud bx-lg"></i><span style="color:Blue"><b>Rit</b></span>Cloud</h1>
+            </div>
+            <div class="col-md-2 mt-5 text-right">
+                <h4><i class="bx bxs-user bx-sm"></i> {{session['name']}}</h4>
+            </div>
+            <div class="col-md-2 mt-5 text-left d-flex">
+                <a href="{{url_for('download')}}" class="mx-1">
+                    <button class="btn btn-primary">Download</button>
+                </a>
+                <form method="post" action="logout">
+                    <input type="submit" class="btn btn-danger" value="Logout">
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr style="background-color:black;height:2px;width:100%">
+</nav>
+
+{%if alert=='1' %}
+<div class="alert alert-success mx-5 my-3 alert-dismissible fade show" role="alert">
+    File Uploaded Successfully..!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endif %}
+
+
+<div class="container  text-center justify-content-center">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>
+                Click On Below Icon And Select Files To Upload.
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center justify-content-center mt-5">
+    <form method="post" action="/uploadhandle" class="form-group" enctype="multipart/form-data">
+        <input type="file" name="ufile" class="form-control my-2">
+        <!--            <input type="file" name="ufile"  formenctype="multipart/form-data" class="form-control my-2" multiple="multiple" accept=".jpeg,.png,.pdf,.docx,.pptx,.xls">-->
+        <input type="submit" value="Upload" class=" form-control btn btn-primary my-2">
+    </form>
+</div>
+
+
+<footer style="position:static;bottom:0;background-color:rgb(200,200,200);padding:5px;text-align:center;width:100%;padding-top:10px;">
+    @copyrights reserved 2021
+</footer>
+</body>
+</html>

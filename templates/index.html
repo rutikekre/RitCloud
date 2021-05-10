@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <meta charset="UTF-8">
+    <title>RitCloud</title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<nav>
+    <h1 style="text-align:center;font-size:250%;margin-top:20px"><i class="bx bxs-cloud bx-lg"></i><span
+            style="color:Blue"><b>Rit</b></span>Cloud</h1>
+    <h1 style="text-align:center;">Welcome To Free Cloud Storage</h1>
+</nav>
+
+
+<div id="alerts">
+    {% if alert== '1' %}
+    <!--this is alert for lsuccessful logout    -->
+    <div class="alert alert-success mx-5 my-3 alert-dismissible fade show" role="alert">
+        Logout successfull...Please visit again.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    {% if alert== '2' %}
+    <!-- This is alert for successful Signup-->
+    <div class="alert alert-success mx-5 my-3  alert-dismissible fade show" role="alert">
+        Your <b>RitCloud</b> Account created successfully...You can login now..
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    {% if alert== '3' %}
+    <!-- This is alert for account already exist -->
+    <div class="alert alert-danger mx-5 my-3  alert-dismissible fade show" role="alert">
+        Account already exist with this email...Please try with another email id.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    {% if alert== '4' %}
+    <!--This is alert for change password-->
+    <div class="alert alert-success mx-5 my-3  alert-dismissible fade show" role="alert">
+        Password changed successfully...You can login now.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    {% if alert== '5' %}
+    <!--This is alert for change email not exist-->
+    <div class="alert alert-danger  mx-5 my-3  alert-dismissible fade show" role="alert">
+        Account with this email does not exist.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    {% if alert== '6' %}
+    <!--This is alert for something went wrong during forgot password-->
+    <div class="alert alert-danger mx-5 my-3  alert-dismissible fade show" role="alert">
+        Something went wrong...Please try again.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+    {% if alert== '7' %}
+    <div class="alert alert-danger mx-5 my-3  alert-dismissible fade show" role="alert">
+        Invalid Account or Password.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-5 ml-5 px-5 pb-3 pt-4 my-5 border border border-primary">
+            <h1 class="text-center"><span style="color:blue">Log</span>in </h1>
+            <form class="form-group" method="post" action="login">
+                <label for="lemail">Email :</label>
+                <input class="form-control input" id="lemail" type="email" name="email">
+
+                <label for="lpassw">Password :</label>
+                <input type="password" id="lpassw" name="passw" class="input form-control">
+
+                <input type="submit" id="submit1" name="login" class="form-control btn btn-primary my-2" value="Login">
+
+                <a href="{{url_for('forgotpassword')}}" class="text-center">Forgot Password ?</a>
+            </form>
+        </div>
+
+
+        <div class="col-lg-5 m-5 px-5 pb-3 pt-4 border border border-primary">
+            <h1 class="text-center mb-3"><span style="color:blue">Sign</span>Up</h1>
+            <form class="form-group" method="post" action="signup">
+                <label for="name">Name :</label>
+                <input id="name" type="text" name="name" class="form-control">
+
+                <label for="email">Email :</label>
+                <input class="form-control input" id="email" type="email" name="email">
+
+                <label for="spassw">Password :</label>
+                <input type="password" id="spassw" name="passw" class="input form-control">
+
+                <label for="cpassw">Confirm Password :</label>
+                <input type="password" id="cpassw" name="cpassw" class="input form-control">
+
+
+                <input type="submit" name="signup" class="form-control btn btn-primary my-2" value="Signup">
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer style="background-color:rgb(200,200,200);padding:5px;text-align:center;margin-top:50px;bottom:0px;width:100%;padding-top:10px">
+    @copyrights reserved 2021
+</footer>
+
+</body>
+</html>
